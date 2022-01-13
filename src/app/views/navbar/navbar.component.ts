@@ -25,6 +25,8 @@ export class NavbarComponent implements OnInit {
     const windowWidth = window.innerWidth;
     this.validateWindowWidth(windowWidth);
 
+    this.getProductsFromLocalStorage();
+
     const productSub = this.service.totalProductsSubject$.subscribe(res =>{
       this.totalProducts = res;
     });

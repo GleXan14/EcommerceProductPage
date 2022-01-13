@@ -6,6 +6,7 @@ import { IImage } from './../../core/models/images';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import Utility from '../../core/utils/Utility';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ProductHomeComponent implements OnInit {
   quantity: number = 0;
   product:IProductData;
   purchasedProducts: IPurchasedProduct[] = [];
+  subscription: Subscription[] = [];
 
   constructor(
     private service: MainService,
@@ -33,10 +35,18 @@ export class ProductHomeComponent implements OnInit {
     this.product = product[0];
     
     this.getProductsFromLocalStorage();
-    this.service.totalProductsSubject$.subscribe(res =>{
+    const productSub = this.service.totalProductsSubject$.subscribe(res =>{
       this.getProductsFromLocalStorage();
-    })
+    });
 
+    this.subscription.push(productSub);
+
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   getProductsFromLocalStorage(){

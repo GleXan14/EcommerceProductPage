@@ -3,6 +3,7 @@ import { MainService } from './../../core/services/main.service';
 import { Component, HostListener, OnInit } from '@angular/core';
 import Utility from '../../core/utils/Utility';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-cart',
@@ -13,6 +14,7 @@ export class ProductCartComponent implements OnInit {
 
   products: IPurchasedProduct[] = [];
   isSmallWindow:boolean = false;
+  subscription: Subscription[] = [];
   constructor(
     private service: MainService,
     private snackbar: MatSnackBar) { }
@@ -21,11 +23,18 @@ export class ProductCartComponent implements OnInit {
     
     this.getProductsInLocalStorage();
 
-    this.service.totalProductsSubject$.subscribe(res =>{
+    const productSub = this.service.totalProductsSubject$.subscribe(res =>{
       this.getProductsInLocalStorage();
     })
+
+    this.subscription.push(productSub);
   }
 
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscription.forEach(sub => sub.unsubscribe());
+  }
   @HostListener('window:resize', ['$event'])
   onResize(event:any) {
     const windowWidth = event.target.innerWidth;
