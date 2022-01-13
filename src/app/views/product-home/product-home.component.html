@@ -1,0 +1,64 @@
+
+<div id="productComponent" class="row">
+    <div class="col-md-6 py-2 px-md-4 imageView">
+        <div class="image py-2 px-4">
+            <img 
+            (click)="showDetailDialog()"
+            [src]="imgSelected.large"
+             alt="product-image">
+        </div>
+        <div class="selector px-4">
+            <div *ngFor="let img of images"  class="mx-2">
+                <img 
+                
+                (click)="selectImage(img)"
+                [ngClass]="{imgSelected: img.selected,
+                    imgNoSelected: !img.selected}"
+
+                [src]="img.small" alt="img-thumbnail-{{img.id}}">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 pt-5" *ngIf="product">
+        <div class="text px-md-2">
+            <strong class="company">Sneaker Company</strong>
+            <h1 class="title">{{product.title}}</h1>
+            <p class="description">{{product.description}}</p>
+            <div class="priceDiscounted">
+                <span class="value">
+                    {{(product.discountedPrice ? 
+                        product.discountedPrice : product.price) | currency}}
+                </span>
+                <span class="percent mx-2" 
+                *ngIf="product.discountedPrice && product.discount">
+                    {{product.discount}}%
+                </span>
+            </div>
+            <span class="price" 
+            *ngIf="product.discountedPrice">
+                {{product.price | currency}}
+            </span>
+        </div>
+        <div class="buttons row px-md-4">
+            <div class="quantity my-2 col-lg-4 col-xl-3">
+                <button mat-icon-button
+                (click)="addOrSubstractQuantity('sub')">
+                    <mat-icon>remove</mat-icon>
+                </button>
+                <span>{{quantity}}</span>
+                <button mat-icon-button
+                (click)="addOrSubstractQuantity('add')">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <button mat-raised-button
+            id="btnAddToCart" class="col-lg-7 my-2 mx-lg-2"
+            (click)="addToCart()"
+            [disabled]="quantity === 0">
+                <mat-icon>shopping_cart</mat-icon>
+                Add to cart
+            </button>
+        </div>
+
+    </div>
+</div>

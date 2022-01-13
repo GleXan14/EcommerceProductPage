@@ -1,1 +1,339 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
+
+//VARIABLES
+
+//colors primary
+$orange: hsl(26, 100%, 55%);
+$paleOrange: hsl(25, 100%, 94%);
+//colors neutral
+$veryDarkBlue: hsl(220, 13%, 13%);
+$darkGrayishBlue: hsl(219, 9%, 45%);
+$grayishBlue: hsl(220, 14%, 75%);
+$lightGrayishBlue: hsl(223, 64%, 98%);
+$white: hsl(0, 0%, 100%);
+$black: hsl(0, 0%, 0%);
+//fonts
+$fontFamily: 'Kumbh Sans', sans-serif;
+$fontSize: 1rem;
+
+//FUNCTIONS
+
+@mixin flex($justify, $align) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin borderDev($color) {
+    border: 2px solid $color;
+}
+
+//STYLES
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+
+html, body { height: 100%; }
+body { font-family: $fontFamily; }
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+
+#sidenavComponent{
+    position: relative;
+
+    @include flex(flex-start, center);
+    flex-direction: column;
+    
+
+    #btnClose{
+
+        transition: 0.2s;
+
+        &:hover{
+            color: $orange;
+        }
+    }
+
+    .menu{
+        position: relative;
+        @include flex(flex-start, center);
+        flex-direction: column;
+
+        p{
+            margin: 0;
+        }
+    }
+}
+
+#navbarComponent{
+    h1{
+        font-weight: 700;
+        font-size: 1.5rem;
+        
+    }
+
+    .menu{
+        height: 100%;
+        @include flex(center, center);
+        font-size: $fontSize;
+        color: $darkGrayishBlue;
+        a{
+            
+            p{
+                
+                margin: 0;
+            }
+
+            &:hover{
+                color: $black;
+            }
+        }
+    }
+
+    .avatar-img{
+        border-radius: 100%;
+        cursor: pointer;
+        border: 2px solid transparent;
+
+        &:hover{
+            //border: 1px solid $orange;
+            @include borderDev($orange)
+        }
+    }
+}
+
+#productComponent{
+
+    .imageView{
+        @include flex(center, center);
+        flex-direction: column;
+    }
+    .image{
+        position: relative;
+        width: 100%;
+        height: auto;
+        @include flex(center, center);
+        //@include borderDev(red);
+
+        img{
+            position: relative;
+            width: 350px;
+            height: 350px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    }
+
+    .selector{
+        position: relative;
+        width: 100%;
+        height: auto;
+        @include flex(center, center);
+        //@include borderDev(red);
+
+        img{
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            cursor: pointer;
+
+            &:hover{
+                border:2px solid $orange;
+            }
+        }
+
+        .imgSelected{
+            border: 2px solid $orange;
+            opacity: 0.5;
+        }
+        .imgNoSelected{
+            border: 2px solid transparent;
+            opacity: 1;
+        }
+        
+    }
+
+    .text{
+        //@include borderDev(red);
+
+        .company{
+            color: $orange;
+        }
+
+        .title{
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .description{
+            color: $darkGrayishBlue;
+        }
+
+        .priceDiscounted{
+            position: relative;
+            width: 100%;
+            @include flex(flex-start, center);
+
+            .value{
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+
+            .percent{
+                background: $paleOrange;
+                color: $orange;
+                height: auto;
+                padding: 2px 5px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                border-radius: 5px;
+            }
+        }
+
+        .price{
+            font-weight: 700;
+            text-decoration: line-through;
+            color: $grayishBlue;
+        }
+    }
+
+    .buttons{
+        position: relative;
+        //@include flex(flex-start,center);
+        //@include borderDev(red);
+
+        .quantity{
+            position: relative;
+            
+            background: $grayishBlue;
+            border-radius: 15px;
+            padding: 5px 10px;
+            @include flex(space-between,center);
+        }
+
+        #btnAddToCart{
+            position: relative;
+            
+            height: auto;
+            padding: 5px 0px;
+            border-radius: 10px;
+            background: $orange;
+            color: $white;
+            cursor: pointer;
+
+            &:hover{
+                opacity: 0.5;
+            }
+
+            &:disabled{
+                opacity: 0.65;
+                cursor: not-allowed;
+            }
+        }
+
+        
+
+    }
+}
+
+#detailComponent{
+    
+    position: relative;
+    @include flex(center, center);
+    flex-direction: column;
+
+    #btnClose{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transition: 0.2s;
+
+        &:hover{
+            opacity: 0.5;
+        }
+        
+    }
+
+    #btnLeft{
+        position: absolute;
+        left: 0;
+        background: $orange;
+        transition: 0.2s;
+
+        &:hover{
+            opacity: 0.5;
+        }
+    }
+
+    #btnRight{
+        position: absolute;
+        right: 0;
+        background: $orange;
+        transition: 0.2s;
+
+        &:hover{
+            opacity: 0.5;
+        }
+    }
+    
+    .image{
+        position: relative;
+        width: 100%;
+        height: auto;
+        @include flex(center, center);
+        //@include borderDev(red);
+
+        img{
+            position: relative;
+            width: 80%;
+            height: 100%;
+            border-radius: 10px;
+        }
+    }
+
+    .selector{
+        position: relative;
+        width: 100%;
+        height: auto;
+        @include flex(center, center);
+        //@include borderDev(red);
+
+        img{
+            border-radius: 10px;
+            cursor: pointer;
+
+            &:hover{
+                border:2px solid $orange;
+            }
+        }
+
+        .imgSelected{
+            border: 2px solid $orange;
+            opacity: 0.5;
+        }
+        .imgNoSelected{
+            border: 2px solid transparent;
+            opacity: 1;
+        }
+        
+    }
+}
+
+
+

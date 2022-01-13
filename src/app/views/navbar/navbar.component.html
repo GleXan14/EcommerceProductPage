@@ -1,0 +1,32 @@
+<mat-toolbar 
+id="navbarComponent"
+class="px-sm-2 px-md-5 py-2"
+style="height: auto;">
+    <button *ngIf="isSmallWindow"
+    mat-icon-button 
+    (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+        <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+    <h1>sneakers</h1>
+    <!-- <span class="spacer"></span> -->
+    
+    <div class="menu" *ngIf="!isSmallWindow">
+        <a mat-button class="mx-2" href="#"><p>Collections</p></a>
+        <a mat-button class="mx-2" href="#"><p>Men</p></a>
+        <a mat-button class="mx-2" href="#"><p>Women</p></a>
+        <a mat-button class="mx-2" href="#"><p>About</p></a>
+        <a mat-button class="mx-2" href="#"><p>Contact</p></a>
+    </div>
+    <span class="spacer"></span>
+    <button mat-icon-button class="mx-2">
+        <mat-icon 
+        matBadge="{{totalProducts}}"
+        [matBadgeHidden]="totalProducts === 0">shopping_cart</mat-icon>
+    </button>
+    <div class="avatar-img mx-2">
+        <img style="width: 40px;" src="assets/images/image-avatar.png" alt="avatar">
+    </div>
+
+    
+</mat-toolbar>

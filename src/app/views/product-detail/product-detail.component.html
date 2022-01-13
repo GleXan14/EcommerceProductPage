@@ -1,0 +1,38 @@
+
+
+<div id="detailComponent" class="col-sm-12 py-2 px-4">
+    <button mat-mini-fab
+    id="btnClose"
+    (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <div class="image py-2 px-4">
+        <img 
+        [src]="imgSelected.large"
+         alt="product-image">
+    </div>
+    <div class="selector row px-4">
+        <div *ngFor="let img of images" class="col-2">
+            <img 
+            style="width: 100%;"
+            (click)="selectImage(img)"
+            [ngClass]="{imgSelected: img.selected,
+                imgNoSelected: !img.selected}"
+
+            [src]="img.small" alt="img-thumbnail-{{img.id}}">
+        </div>
+    </div>
+
+    <button mat-mini-fab
+    id="btnLeft"
+    (click)="changeImage('left')">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <button mat-mini-fab
+    id="btnRight"
+    (click)="changeImage('right')">
+        <mat-icon>arrow_forward</mat-icon>
+    </button>
+</div>
