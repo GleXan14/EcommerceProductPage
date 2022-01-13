@@ -17,11 +17,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { NavbarComponent } from '../app/views/navbar/navbar.component';
 import { SideNavbarComponent } from '../app/views/side-navbar/side-navbar.component';
 import { ProductDetailComponent } from '../app/views/product-detail/product-detail.component';
 import { ProductHomeComponent } from '../app/views/product-home/product-home.component';
+import { ProductCartComponent } from './views/product-cart/product-cart.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { ProductHomeComponent } from '../app/views/product-home/product-home.com
     NavbarComponent,
     SideNavbarComponent,
     ProductHomeComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ProductCartComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { ProductHomeComponent } from '../app/views/product-home/product-home.com
     MatTooltipModule,
     MatSidenavModule,
     MatDialogModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatSnackBarModule
   ],
   providers: [],
   entryComponents: [

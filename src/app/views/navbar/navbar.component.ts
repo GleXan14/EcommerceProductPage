@@ -1,8 +1,9 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MainService } from './../../core/services/main.service';
-import { IPurchasedProduct } from './../../core/models/product';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
+import Utility from '../../core/utils/Utility';
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +15,11 @@ export class NavbarComponent implements OnInit {
   @Input() sidenav: MatSidenav;
   isSmallWindow:boolean = false;
   totalProducts: number = 0;
+  isCartOpen:boolean = false;
   subscription: Subscription[] = [];
-  constructor(private service: MainService) { }
+  constructor(
+    private service: MainService,
+    private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     const windowWidth = window.innerWidth;
@@ -49,8 +53,23 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  showCartDialog(){
-    
+  getProductsFromLocalStorage(){
+    const key = Utility.LS_PRODUCT_KEY;
+    const purchasedProducts = this.service.getLocalStorage(key);
+    this.totalProducts = purchasedProducts? purchasedProducts.length : 0;
+  }
+
+  toggleCart(){
+    this.isCartOpen = !this.isCartOpen;
+  }
+
+  alertDoesntWork(){
+
+    const text:string = `This button does not work`
+    this.snackbar.open(text, null, {
+      duration: 4000,
+      panelClass: ['bg-secondary', 'text-white']
+    })
   }
 
 }

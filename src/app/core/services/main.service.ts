@@ -33,4 +33,9 @@ export class MainService {
   getLocalStorage(key:string):any{
     return JSON.parse(localStorage.getItem(key));
   }
+
+  deleteLocalStorage(key:string){
+    localStorage.removeItem(key);
+    this.totalProductsSubject$.next(0);
+  }
 }

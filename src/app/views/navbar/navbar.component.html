@@ -19,13 +19,21 @@ style="height: auto;">
         <a mat-button class="mx-2" href="#"><p>Contact</p></a>
     </div>
     <span class="spacer"></span>
-    <button mat-icon-button class="mx-2">
+    <button mat-icon-button class="mx-2"
+    (click)="toggleCart()">
         <mat-icon 
         matBadge="{{totalProducts}}"
         [matBadgeHidden]="totalProducts === 0">shopping_cart</mat-icon>
     </button>
-    <div class="avatar-img mx-2">
-        <img style="width: 40px;" src="assets/images/image-avatar.png" alt="avatar">
+    <div class="cart col-lg-4 mx-lg-5"
+    [ngClass]="{'cart__mobile': isSmallWindow}"
+     *ngIf="isCartOpen">
+        <app-product-cart></app-product-cart>
+    </div>
+    <div class="avatar-img mx-2"
+    (click)="alertDoesntWork()">
+        <img style="width: 40px;"
+         src="assets/images/image-avatar.png" alt="avatar">
     </div>
 
     

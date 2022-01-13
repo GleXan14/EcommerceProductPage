@@ -1,0 +1,46 @@
+<div id="cartComponent">
+    <div class="title py-2 px-4">
+        <h4>Cart</h4>
+    </div>
+    <div class="content my-4 px-4">
+        <div class="product my-2"
+        *ngFor="let product of products">
+            <div class="img">
+                <img src="{{product.image}}"
+                style="width: 50px;" 
+                alt="image-product">
+            </div>
+            <div class="data mx-4">
+                <span>{{product.title}}</span>
+                <div class="price">
+                    <span>
+                        {{product.price | currency}} X {{product.quantity}}
+                    </span>
+                    <strong class="mx-2">{{(product.price*product.quantity) | currency}}</strong>
+                </div>
+            </div>
+            <button mat-icon-button 
+            id="btnDelete"
+            (click)="deleteProduct(product)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+        <button mat-raised-button
+        id="btnCheckout"
+        *ngIf="products.length > 0"
+        (click)="checkout()">
+            Checkout
+        </button>
+        <div 
+        [ngClass]="{
+            'cartEmptyMobile': isSmallWindow,
+            'cartEmpty': !isSmallWindow}"
+         *ngIf="products.length === 0">
+            <strong>Your cart is empty</strong>
+        </div>
+    </div>
+    
+        
+    
+    
+</div>

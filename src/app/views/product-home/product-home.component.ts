@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { IProductData, IPurchasedProduct, PurchasedProduct } from './../../core/models/product';
 import { ProductDetailComponent } from './../product-detail/product-detail.component';
 import { MainService } from './../../core/services/main.service';
@@ -31,10 +32,17 @@ export class ProductHomeComponent implements OnInit {
     const product = this.service.getProducts();
     this.product = product[0];
     
+    this.getProductsFromLocalStorage();
+    this.service.totalProductsSubject$.subscribe(res =>{
+      this.getProductsFromLocalStorage();
+    })
+
+  }
+
+  getProductsFromLocalStorage(){
     const key = Utility.LS_PRODUCT_KEY;
     const purchasedProducts = this.service.getLocalStorage(key);
     this.purchasedProducts = purchasedProducts? purchasedProducts : [];
-    
   }
 
   getImageSelected(images:IImage[]):IImage{
