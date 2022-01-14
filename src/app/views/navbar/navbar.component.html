@@ -23,6 +23,8 @@ style="height: auto;">
     (click)="toggleCart()">
         <mat-icon 
         matBadge="{{totalProducts}}"
+        matBadgeColor="primary"
+        matBadgeSize="{{badgeSize}}"
         [matBadgeHidden]="totalProducts === 0">shopping_cart</mat-icon>
     </button>
     <div class="cart col-lg-4 mx-lg-5"

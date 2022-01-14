@@ -2,7 +2,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MainService } from './../../core/services/main.service';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Subscription } from 'rxjs';
+import { AsyncSubject, Subscription } from 'rxjs';
+import { tap, debounceTime } from 'rxjs/operators';
 import Utility from '../../core/utils/Utility';
 
 @Component({
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
   isSmallWindow:boolean = false;
   totalProducts: number = 0;
   isCartOpen:boolean = false;
+  badgeSize:string = 'medium';
   subscription: Subscription[] = [];
   constructor(
     private service: MainService,
@@ -24,9 +26,17 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     const windowWidth = window.innerWidth;
     this.validateWindowWidth(windowWidth);
+
+    
     
     const productSub = this.service.totalProductsSubject$.subscribe(res =>{
+
       this.totalProducts = res;
+      this.badgeSize = 'large'
+      setTimeout(() =>{
+        this.badgeSize = 'medium'
+      },200)
+      
     });
     this.subscription.push(productSub);
 
@@ -67,6 +77,8 @@ export class NavbarComponent implements OnInit {
   toggleCart(){
     this.isCartOpen = !this.isCartOpen;
   }
+
+  
 
   alertDoesntWork(){
 
