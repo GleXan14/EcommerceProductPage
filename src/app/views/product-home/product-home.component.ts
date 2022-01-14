@@ -114,14 +114,23 @@ export class ProductHomeComponent implements OnInit {
     const purchasedProduct: IPurchasedProduct = {
       title: this.product.title,
       price: this.product.discountedPrice ? this.product.discountedPrice : this.product.price,
-      quantity: this.quantity,
+      quantity: this.getTotalQuantity(),
       image: this.images[0].small
-    }
-    this.purchasedProducts.push(purchasedProduct);
+    };
+    this.purchasedProducts = [purchasedProduct];
+
 
     const key = Utility.LS_PRODUCT_KEY;
     this.service.postLocalStorage(key, this.purchasedProducts);
     
+  }
+
+  getTotalQuantity(): number{
+    if(this.purchasedProducts.length === 0){
+      return this.quantity;
+    }else{
+      return this.quantity + this.purchasedProducts[0].quantity;
+    }
   }
 
 
