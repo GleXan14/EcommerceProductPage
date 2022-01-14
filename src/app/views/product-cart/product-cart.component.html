@@ -31,10 +31,7 @@
         (click)="checkout()">
             Checkout
         </button>
-        <div 
-        [ngClass]="{
-            'cartEmptyMobile': isSmallWindow,
-            'cartEmpty': !isSmallWindow}"
+        <div class="cartEmpty"
          *ngIf="products.length === 0">
             <strong>Your cart is empty</strong>
         </div>

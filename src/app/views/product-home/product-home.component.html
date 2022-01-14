@@ -3,7 +3,7 @@
     <div class="col-md-6 py-2 px-md-4 imageView">
         <div class="image py-2 px-4">
             <img 
-            (click)="showDetailDialog()"
+            (click)="!isSmallWindow ? showDetailDialog() : null"
             [src]="imgSelected.large"
              alt="product-image">
         </div>

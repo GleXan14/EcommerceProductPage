@@ -1,6 +1,6 @@
 import { IPurchasedProduct } from './../../core/models/product';
 import { MainService } from './../../core/services/main.service';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Utility from '../../core/utils/Utility';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -13,19 +13,18 @@ import { Subscription } from 'rxjs';
 export class ProductCartComponent implements OnInit {
 
   products: IPurchasedProduct[] = [];
-  isSmallWindow:boolean = false;
   subscription: Subscription[] = [];
   constructor(
     private service: MainService,
     private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
-    
-    this.getProductsInLocalStorage();
 
     const productSub = this.service.totalProductsSubject$.subscribe(res =>{
       this.getProductsInLocalStorage();
     })
+
+    this.getProductsInLocalStorage();
 
     this.subscription.push(productSub);
   }
@@ -34,20 +33,6 @@ export class ProductCartComponent implements OnInit {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.subscription.forEach(sub => sub.unsubscribe());
-  }
-  @HostListener('window:resize', ['$event'])
-  onResize(event:any) {
-    const windowWidth = event.target.innerWidth;
-    this.validateWindowWidth(windowWidth);
-    //console.log(width);
-  }
-
-  validateWindowWidth(windowWidth:number){
-    if(windowWidth < 768){
-      this.isSmallWindow = true;
-    }else{
-      this.isSmallWindow = false;
-    }
   }
 
   getProductsInLocalStorage():void{

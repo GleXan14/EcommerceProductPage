@@ -24,13 +24,14 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     const windowWidth = window.innerWidth;
     this.validateWindowWidth(windowWidth);
-
-    this.getProductsFromLocalStorage();
-
+    
     const productSub = this.service.totalProductsSubject$.subscribe(res =>{
       this.totalProducts = res;
     });
     this.subscription.push(productSub);
+
+    this.getProductsFromLocalStorage();
+
 
   }
 
@@ -59,6 +60,8 @@ export class NavbarComponent implements OnInit {
     const key = Utility.LS_PRODUCT_KEY;
     const purchasedProducts = this.service.getLocalStorage(key);
     this.totalProducts = purchasedProducts? purchasedProducts.length : 0;
+
+    console.log(purchasedProducts);
   }
 
   toggleCart(){
